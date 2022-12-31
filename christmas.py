@@ -3,18 +3,28 @@ import os
 import time
 import random
 pygame.font.init()
+from pygame import mixer
+from pygame import mixer_music
 
 WIDTH, HEIGHT = 750, 750
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Space Shooter Tutorial")
+pygame.display.set_caption("Christmas: Space Invaders")
+
+X = 'AngelMan/audio/main.ogg'
+def makeSound(thisSound):
+    pygame.mixer.init()
+    thisSound = pygame.mixer.Sound('AngelMan/audio/main.ogg')
+    return(thisSound)
+makeSound(thisSound=1)
+
 
 # Load images
-RED_SPACE_SHIP = pygame.image.load(os.path.join("assets", "pixel_ship_red_small.png")) # Santa's wife.
-GREEN_SPACE_SHIP = pygame.image.load(os.path.join("assets", "pixel_ship_green_small.png")) # Santa's son (elf).
-BLUE_SPACE_SHIP = pygame.image.load(os.path.join("assets", "pixel_ship_blue_small.png")) # Rudolph.
+RED_SPACE_SHIP = pygame.image.load(os.path.join("assets", "mrs-santa.png")) # Santa's wife.
+GREEN_SPACE_SHIP = pygame.image.load(os.path.join("assets", "elf.png")) # Santa's son (elf).
+BLUE_SPACE_SHIP = pygame.image.load(os.path.join("assets", "rudolph.png")) # Rudolph.
 
 # Player ship.
-YELLOW_SPACE_SHIP = pygame.image.load(os.path.join("assets", "pixel_ship_yellow.png")) # Santa.
+YELLOW_SPACE_SHIP = pygame.image.load(os.path.join("assets", "santa.png")) # Santa.
 
 # Lasers
 RED_LASER = pygame.image.load(os.path.join("assets", "pixel_laser_red.png"))
@@ -23,7 +33,7 @@ BLUE_LASER = pygame.image.load(os.path.join("assets", "pixel_laser_blue.png"))
 YELLOW_LASER = pygame.image.load(os.path.join("assets", "pixel_laser_yellow.png"))
 
 # Background
-BG = pygame.transform.scale(pygame.image.load(os.path.join("assets", "background-black.png")), (WIDTH, HEIGHT))
+BG = pygame.transform.scale(pygame.image.load(os.path.join("assets", "background-grey.png")), (WIDTH, HEIGHT))
 
 class Laser:
     def __init__(self, x, y, img):
@@ -185,7 +195,7 @@ def main():
         player.draw(WIN)
 
         if lost:
-            lost_label = lost_font.render("You Lost!!", 1, (255,255,255))
+            lost_label = lost_font.render("Game Over.", 1, (255,255,255))
             WIN.blit(lost_label, (WIDTH/2 - lost_label.get_width()/2, 350))
 
         pygame.display.update()
@@ -248,7 +258,7 @@ def main_menu():
     run = True
     while run:
         WIN.blit(BG, (0,0))
-        title_label = title_font.render("Press the mouse to begin...", 1, (255,255,255))
+        title_label = title_font.render("Click to Start", 1, (255,255,255))
         WIN.blit(title_label, (WIDTH/2 - title_label.get_width()/2, 350))
         pygame.display.update()
         for event in pygame.event.get():
